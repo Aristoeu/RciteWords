@@ -1,4 +1,4 @@
-package com.example.recitewords;
+package com.example.recitewords.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.recitewords.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +26,7 @@ public class WordsActivity extends AppCompatActivity {
         ReadText();
         listView = findViewById(R.id.StdInfo);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this,R.layout.support_simple_spinner_dropdown_item,InfoName
+                this,R.layout.item_layout,R.id.chosen_word,InfoName
         );
         listView.setAdapter(adapter);
     }

@@ -1,6 +1,8 @@
-package com.example.recitewords;
+package com.example.recitewords.Fragments;
 
 import android.view.View;
+
+import com.example.recitewords.R;
 
 public class Fragment4 extends BaseFragment {
     @Override

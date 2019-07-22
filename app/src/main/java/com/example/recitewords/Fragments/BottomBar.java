@@ -1,4 +1,4 @@
-package com.example.recitewords;
+package com.example.recitewords.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

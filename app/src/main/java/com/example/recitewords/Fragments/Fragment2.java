@@ -1,18 +1,14 @@
-package com.example.recitewords;
+package com.example.recitewords.Fragments;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Scanner;
+import com.example.recitewords.R;
+import com.example.recitewords.Activities.WordsActivity;
 
 public class Fragment2 extends BaseFragment {
     View view;
