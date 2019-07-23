@@ -1,21 +1,14 @@
 package com.example.recitewords.DetailWords;
 
-import android.content.res.Resources;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
 
 import com.example.recitewords.Activities.DetailActivity;
 import com.example.recitewords.R;
@@ -26,30 +19,13 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.Scanner;
 
-
-/**
- * Created by Lister on 2017-05-18.
- */
+import static com.example.recitewords.Data.MyList.ListToChoose;
 
 public class Fragment2 extends BaseFragment {
 
-    @Override
-    public View initView() {
-        View view = View.inflate(mContext, R.layout.fragment_detail, null);
-        word = getActivity().findViewById(R.id.wordText);
-        pronunciation = view.findViewById(R.id.toPronunciation);
-        translation = view.findViewById(R.id.toTranslation);
-        sentences = view.findViewById(R.id.toSentences);
-        pronounce = view.findViewById(R.id.toPronounce);
-        return view;
-    }
-    public ArrayList<String> InfoName = new ArrayList<String>();
-    public ArrayList<ArrayList<String>> Info = new ArrayList<ArrayList<String>>();
+
     String Word,Translation,Pronunciation,MusicUrl="0",Sentences;
     TextView word,pronunciation,translation,floatView,sentences;
     ImageView pronounce;
@@ -154,39 +130,21 @@ public class Fragment2 extends BaseFragment {
 
         }
     };
-    public void ReadText() {
-        Resources resources = this.getResources();
-        InputStream StdInfo = null;
-        try {
-            StdInfo = resources.openRawResource(R.raw.ielts);
-            if (StdInfo.available() == 0)
-                return;
-            if (StdInfo != null) {
-                //用utf-8读取文件
-                Scanner input = new Scanner(StdInfo, "utf-8");
-                while (input.hasNext()) {
-                    //将读取出来的数据文件
-                    ArrayList<String> SubInfo = new ArrayList<String>();
-                    String word = input.next();
-                    //String pronunciation = input.next();
-                    //String translation = input.next();
-                    SubInfo.add(word);
-                    //SubInfo.add(pronunciation);
-                    //SubInfo.add(translation);
-                    InfoName.add(word);
-                    Info.add(SubInfo);
-                }
-
-            }
-        } catch (IOException e) {
-            Toast.makeText(getContext(), "not exist!", Toast.LENGTH_LONG);
-        }
+    @Override
+    public View initView() {
+        View view = View.inflate(mContext, R.layout.fragment_detail, null);
+        word = getActivity().findViewById(R.id.wordText);
+        pronunciation = view.findViewById(R.id.toPronunciation);
+        translation = view.findViewById(R.id.toTranslation);
+        sentences = view.findViewById(R.id.toSentences);
+        pronounce = view.findViewById(R.id.toPronounce);
+        return view;
     }
     @Override
     public void initData(){
-        ReadText();
+        if ((DetailActivity.i+1)< ListToChoose.size()){
         PostWord postWord = new PostWord();
-        postWord.post_word(InfoName.get(DetailActivity.i+1),onWordListener);
+        postWord.post_word(ListToChoose.get(DetailActivity.i+1),onWordListener);
         Log.d("<<<>>>",(DetailActivity.i+1)+"");
         pronounce.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,6 +170,6 @@ public class Fragment2 extends BaseFragment {
                 }
             }
         });
-    }
+    }}
 
 }

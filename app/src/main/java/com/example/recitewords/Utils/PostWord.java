@@ -1,24 +1,13 @@
 package com.example.recitewords.Utils;
 
 
-import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.example.recitewords.Bean.WordBean;
-import com.example.recitewords.Bean.Wording;
-import com.google.gson.Gson;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.XML;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.UUID;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -50,23 +39,9 @@ public class PostWord implements WordModel {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                XStream xStream = new XStream(new DomDriver("UTF-8"));
-                xStream.processAnnotations(Wording.class);
                 if(response.isSuccessful()) {
                     String d = response.body().string();
-                    //Wording wording = (Wording) xStream.fromXML(d);
                     Log.d(TAG,"<<<<d="+d);
-                    //Log.d(TAG,d+"<<<>>>");
-                   // onWordListener.onSuccess(d);
-
-                   /* JSONObject jsonObject = null;
-                    try {
-                        jsonObject = XML.toJSONObject(d);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.e("<<<>>>","exception");
-                    }
-                    Log.d("<<<>>>",jsonObject.toString());*/
                    onWordListener.onSuccess(d);
 
                 }else onWordListener.onError();

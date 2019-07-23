@@ -26,10 +26,6 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * Created by Lister on 2017-05-18.
- * 所有 Fragment 的基类
- */
 
 public abstract class BaseFragment extends Fragment {
 
@@ -55,7 +51,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * 继承此类的子类必须重写此方法加载布局
+     * 加载布局
      */
     public abstract View initView();
 

@@ -65,6 +65,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_marginRight="20dp"
-            android:text="确定" />
+            android:text="确定"
+            android:id="@+id/confirm"/>
     </LinearLayout>
 </LinearLayout>

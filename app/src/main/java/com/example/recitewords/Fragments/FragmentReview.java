@@ -1,7 +1,5 @@
 package com.example.recitewords.Fragments;
 
-import android.content.Intent;
-import android.content.res.Resources;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -15,35 +13,26 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.recitewords.Activities.WordsActivity;
-import com.example.recitewords.Bean.WordBean;
+import com.example.recitewords.Data.MyList;
 import com.example.recitewords.R;
 import com.example.recitewords.Utils.OnWordListener;
 import com.example.recitewords.Utils.PostWord;
-import com.google.gson.Gson;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class Fragment1 extends BaseFragment {
+public class FragmentReview extends BaseFragment {
     View view;
     ImageView top,bot,pronounce;
     Button button1,button2,button3;
     TextView word,pronunciation,translation,floatView,sentences;
     String Word,Translation,Pronunciation,MusicUrl="0",Sentences;
     private static final int COMPLETED = 0;
-    public ArrayList<String> InfoName = new ArrayList<String>();
-    public ArrayList<ArrayList<String>> Info = new ArrayList<ArrayList<String>>();
+    boolean isNotFinished = true;
 
     int index = 0;
 
@@ -56,6 +45,10 @@ public class Fragment1 extends BaseFragment {
                 pronunciation.setText("/"+Pronunciation+"/");
                 sentences.setText(Sentences);
                 sentences.setMovementMethod(ScrollingMovementMethod.getInstance());
+            }
+            if (msg.what==1){
+                floatView.setText("你已经背完了所有的单词！");
+                isNotFinished = false;
             }
         }
     };
@@ -174,36 +167,50 @@ public class Fragment1 extends BaseFragment {
 
         super.onActivityCreated(savedInstanceState);
         final String wordToKnow;
-        ReadText();
 
-        wordToKnow = InfoName.get(index);
+        wordToKnow = MyList.InfoName.get(index);
         final PostWord postWord = new PostWord();
-        postWord.post_word(InfoName.get(0),onWordListener);
+        postWord.post_word(MyList.InfoName.get(0),onWordListener);
         word.setText(wordToKnow);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postWord.post_word(InfoName.get(++index),onWordListener);
+                if (index == MyList.InfoName.size()-1)
+                {   Message msg = new Message();
+                    msg.what = 1;
+                    handler.sendMessage(msg);}
+               else postWord.post_word(MyList.InfoName.get(++index),onWordListener);
                 floatView.setVisibility(View.VISIBLE);
             }
         });
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postWord.post_word(InfoName.get(++index),onWordListener);
+                if (index == MyList.InfoName.size()-1)
+                {   Message msg = new Message();
+                    msg.what = 1;
+                    handler.sendMessage(msg);}
+               else{ postWord.post_word(MyList.InfoName.get(++index),onWordListener);
+                MyList.InfoName.add(MyList.InfoName.get(index));}
                 floatView.setVisibility(View.VISIBLE);
             }
         });
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postWord.post_word(InfoName.get(++index),onWordListener);
+                if (index == MyList.InfoName.size()-1)
+                {   Message msg = new Message();
+                    msg.what = 1;
+                    handler.sendMessage(msg);}
+              else {  postWord.post_word(MyList.InfoName.get(++index),onWordListener);
+                MyList.InfoName.add(MyList.InfoName.get(index));}
                 floatView.setVisibility(View.VISIBLE);
             }
         });
         floatView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (isNotFinished)
                 floatView.setVisibility(View.INVISIBLE);
             }
         });
@@ -230,34 +237,6 @@ public class Fragment1 extends BaseFragment {
                 }
             }
         });
-    }
-    public void ReadText() {
-        Resources resources = this.getResources();
-        InputStream StdInfo = null;
-        try {
-            StdInfo = resources.openRawResource(R.raw.ielts);
-            if (StdInfo.available() == 0)
-                return;
-            if (StdInfo != null) {
-                //用utf-8读取文件
-                Scanner input = new Scanner(StdInfo, "utf-8");
-                while (input.hasNext()) {
-                    //将读取出来的数据文件
-                    ArrayList<String> SubInfo = new ArrayList<String>();
-                    String word = input.next();
-                    //String pronunciation = input.next();
-                    //String translation = input.next();
-                    SubInfo.add(word);
-                    //SubInfo.add(pronunciation);
-                    //SubInfo.add(translation);
-                    InfoName.add(word);
-                    Info.add(SubInfo);
-                }
-
-            }
-        } catch (IOException e) {
-            Toast.makeText(getContext(), "not exist!", Toast.LENGTH_LONG);
-        }
     }
 
 }

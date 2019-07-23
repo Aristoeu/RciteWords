@@ -29,10 +29,6 @@ public class BottomBar extends View{
         this.context = context;
     }
 
-    //////////////////////////////////////////////////
-    //提供的api 并且根据api做一定的物理基础准备
-    //////////////////////////////////////////////////
-
     private int containerId;
 
     private List<Class> fragmentClassList = new ArrayList<>();
@@ -100,15 +96,14 @@ public class BottomBar extends View{
         return this;
     }
 
-    public BottomBar setFirstChecked(int firstCheckedIndex) {//从0开始
+    public BottomBar setFirstChecked(int firstCheckedIndex) {
         this.firstCheckedIndex = firstCheckedIndex;
         return this;
     }
 
     public void build() {
         itemCount = fragmentClassList.size();
-        //预创建bitmap的Rect并缓存
-        //预创建icon的Rect并缓存
+
         for (int i = 0; i < itemCount; i++) {
             Bitmap beforeBitmap = getBitmap(iconResBeforeList.get(i));
             iconBitmapBeforeList.add(beforeBitmap);
@@ -139,10 +134,6 @@ public class BottomBar extends View{
         return bitmapDrawable.getBitmap();
     }
 
-    //////////////////////////////////////////////////
-    //初始化数据基础
-    //////////////////////////////////////////////////
-
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
@@ -167,18 +158,15 @@ public class BottomBar extends View{
             //图标文字margin
             int textIconMargin = dp2px(((float)titleIconMargin)/2);//先指定5dp，这里除以一半才是正常的margin，不知道为啥，可能是图片的原因
 
-            //标题高度
             int titleSize = dp2px(titleSizeInDp);//这里先指定10dp
             paint.setTextSize(titleSize);
             Rect rect = new Rect();
             paint.getTextBounds(titleList.get(0), 0, titleList.get(0).length(), rect);
             int titleHeight = rect.height();
 
-            //从而计算得出图标的起始top坐标、文本的baseLine
             int iconTop = (parentItemHeight - iconHeight - textIconMargin - titleHeight)/2;
             titleBaseLine = parentItemHeight - iconTop;
 
-            //对icon的rect的参数进行赋值
             int firstRectX = (parentItemWidth - iconWidth) / 2;//第一个icon的左
             for (int i = 0; i < itemCount; i++) {
                 int rectX = i * parentItemWidth + firstRectX;
@@ -191,7 +179,6 @@ public class BottomBar extends View{
                 temp.bottom = iconTop + iconHeight;
             }
 
-            //标题（单位是个问题）
             for (int i = 0; i < itemCount; i ++) {
                 String title = titleList.get(i);
                 paint.getTextBounds(title, 0, title.length(), rect);
@@ -205,13 +192,10 @@ public class BottomBar extends View{
         return (int) (dpValue * scale + 0.5f);
     }
 
-    //////////////////////////////////////////////////
-    //根据得到的参数绘制
-    //////////////////////////////////////////////////
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);//这里让view自身替我们画背景 如果指定的话
+        super.onDraw(canvas);
 
         if (itemCount != 0) {
             //画背景
@@ -242,9 +226,7 @@ public class BottomBar extends View{
         }
     }
 
-    //////////////////////////////////////////////////
-    //点击事件:我观察了微博和掌盟，发现down和up都在该区域内才响应
-    //////////////////////////////////////////////////
+
 
     int target = -1;
 
@@ -260,7 +242,6 @@ public class BottomBar extends View{
                     break;
                 }
                 if (target == withinWhichArea((int)event.getX())) {
-                    //这里触发点击事件
                     switchFragment(target);
                     currentCheckedIndex = target;
                     invalidate();
@@ -269,24 +250,13 @@ public class BottomBar extends View{
                 break;
         }
         return true;
-        //这里return super为什么up执行不到？是因为return super的值，全部取决于你是否
-        //clickable，当你down事件来临，不可点击，所以return false，也就是说，而且你没
-        //有设置onTouchListener，并且控件是ENABLE的，所以dispatchTouchEvent的返回值
-        //也是false，所以在view group的dispatchTransformedTouchEvent也是返回false，
-        //这样一来，view group中的first touch target就是空的，所以intercept标记位
-        //果断为false，然后就再也进不到循环取孩子的步骤了，直接调用dispatch-
-        // TransformedTouchEvent并传孩子为null，所以直接调用view group自身的dispatch-
-        // TouchEvent了
+
     }
 
     private int withinWhichArea(int x) { return x/parentItemWidth; }//从0开始
 
-    //////////////////////////////////////////////////
-    //碎片处理代码
-    //////////////////////////////////////////////////
     private Fragment currentFragment;
 
-    //注意 这里是只支持AppCompatActivity 需要支持其他老版的 自行修改
     protected void switchFragment(int whichFragment) {
         Fragment fragment = fragmentList.get(whichFragment);
         int frameLayoutId = containerId;

@@ -4,10 +4,10 @@ import android.view.View;
 
 import com.example.recitewords.R;
 
-public class Fragment4 extends BaseFragment {
+public class FragmentCalculate extends BaseFragment {
     @Override
     public View initView() {
-        View view = View.inflate(mContext, R.layout.fragment4, null);
+        View view = View.inflate(mContext, R.layout.fragment3, null);
         return view;
     }
 }

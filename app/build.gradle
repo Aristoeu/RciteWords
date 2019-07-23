@@ -35,4 +35,6 @@ dependencies {
     implementation files('libs/json-20180813.jar')
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+    implementation 'com.github.donkingliang:GroupedRecyclerViewAdapter:1.2.2'
+    implementation 'com.android.support:recyclerview-v7:25.3.1'
 }
