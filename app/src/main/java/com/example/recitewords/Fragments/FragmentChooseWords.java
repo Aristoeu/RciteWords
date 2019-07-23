@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -36,14 +34,14 @@ public class FragmentChooseWords extends BaseFragment {
 
     @Override
     public View initView() {
-        View view = View.inflate(mContext, R.layout.fragment2, null);
+        View view = View.inflate(mContext, R.layout.fragment_choose_words, null);
         return view;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment2, null);
+        view = inflater.inflate(R.layout.fragment_choose_words, null);
         textView = view.findViewById(R.id.myWords);
         lv_tree = view.findViewById(R.id.lv_tree);
         initDatan();

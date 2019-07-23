@@ -142,13 +142,13 @@ public class FragmentReview extends BaseFragment {
     };
     @Override
     public View initView() {
-        View view = View.inflate(mContext, R.layout.fragment1, null);
+        View view = View.inflate(mContext, R.layout.fragment_review, null);
         return view;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment1, null);
+        view = inflater.inflate(R.layout.fragment_review, null);
         top = view.findViewById(R.id.rev_top);
         bot = view.findViewById(R.id.rev_bot);
         button1 = view.findViewById(R.id.btn_know);
