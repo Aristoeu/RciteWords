@@ -22,10 +22,7 @@ import com.example.recitewords.Trees.TreePatent;
 import java.util.ArrayList;
 
 public class FragmentChooseWords extends BaseFragment {
-    View view;
-    TextView textView;
-    private TextView tvTitle;
-    private RecyclerView rvList;
+    private TextView textView;
     private ListView lv_tree;
     private TreeNodeAdapter adapter;
     private TreeNode parent ;
@@ -41,7 +38,7 @@ public class FragmentChooseWords extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_choose_words, null);
+        View view = inflater.inflate(R.layout.fragment_choose_words, null);
         textView = view.findViewById(R.id.myWords);
         lv_tree = view.findViewById(R.id.lv_tree);
         initDatan();

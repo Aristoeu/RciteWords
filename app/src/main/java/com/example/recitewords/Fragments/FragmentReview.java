@@ -26,16 +26,13 @@ import java.io.IOException;
 import java.io.StringReader;
 
 public class FragmentReview extends BaseFragment {
-    View view;
-    ImageView top,bot,pronounce;
-    Button button1,button2,button3;
-    TextView word,pronunciation,translation,floatView,sentences;
-    String Word,Translation,Pronunciation,MusicUrl="0",Sentences;
+    private ImageView pronounce;
+    private Button button1,button2,button3;
+    private TextView word,pronunciation,translation,floatView,sentences;
+    private String Word,Translation,Pronunciation,MusicUrl="0",Sentences;
     private static final int COMPLETED = 0;
-    boolean isNotFinished = true;
-
-    int index = 0;
-
+    private boolean isNotFinished = true;
+    private int index = 0;
     private Handler handler = new Handler(){
         @Override
         public  void handleMessage(Message msg){
@@ -148,9 +145,9 @@ public class FragmentReview extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_review, null);
-        top = view.findViewById(R.id.rev_top);
-        bot = view.findViewById(R.id.rev_bot);
+        View view = inflater.inflate(R.layout.fragment_review, null);
+        ImageView top = view.findViewById(R.id.rev_top);
+        ImageView bot = view.findViewById(R.id.rev_bot);
         button1 = view.findViewById(R.id.btn_know);
         button2 = view.findViewById(R.id.btn_half_know);
         button3 = view.findViewById(R.id.btn_not_know);
@@ -168,42 +165,44 @@ public class FragmentReview extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         final String wordToKnow;
 
-        wordToKnow = MyList.InfoName.get(index);
+        wordToKnow = MyList.ListToReview.get(index);
         final PostWord postWord = new PostWord();
-        postWord.post_word(MyList.InfoName.get(0),onWordListener);
+        postWord.post_word(MyList.ListToReview.get(0),onWordListener);
         word.setText(wordToKnow);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (index == MyList.InfoName.size()-1)
+                if (index == MyList.ListToReview.size()-1)
                 {   Message msg = new Message();
                     msg.what = 1;
                     handler.sendMessage(msg);}
-               else postWord.post_word(MyList.InfoName.get(++index),onWordListener);
+               else postWord.post_word(MyList.ListToReview.get(++index),onWordListener);
                 floatView.setVisibility(View.VISIBLE);
             }
         });
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (index == MyList.InfoName.size()-1)
+                if (index == MyList.ListToReview.size()-1)
                 {   Message msg = new Message();
                     msg.what = 1;
                     handler.sendMessage(msg);}
-               else{ postWord.post_word(MyList.InfoName.get(++index),onWordListener);
-                MyList.InfoName.add(MyList.InfoName.get(index));}
+               else{
+                MyList.ListToReview.add(MyList.ListToReview.get(index));
+                postWord.post_word(MyList.ListToReview.get(++index),onWordListener);}
                 floatView.setVisibility(View.VISIBLE);
             }
         });
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (index == MyList.InfoName.size()-1)
+                if (index == MyList.ListToReview.size()-1)
                 {   Message msg = new Message();
                     msg.what = 1;
                     handler.sendMessage(msg);}
-              else {  postWord.post_word(MyList.InfoName.get(++index),onWordListener);
-                MyList.InfoName.add(MyList.InfoName.get(index));}
+              else {
+                MyList.ListToReview.add(MyList.ListToReview.get(index));
+                postWord.post_word(MyList.ListToReview.get(++index),onWordListener);}
                 floatView.setVisibility(View.VISIBLE);
             }
         });

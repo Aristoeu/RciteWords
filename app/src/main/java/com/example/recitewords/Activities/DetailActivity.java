@@ -43,7 +43,7 @@ public class DetailActivity extends AppCompatActivity {
     @BindView(R.id.confirm)TextView Confirm;
     private int screenWidth;
     private List<BaseFragment> mFragmentList = new ArrayList<>();
-    private PagerSlideAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +62,7 @@ public class DetailActivity extends AppCompatActivity {
         mFragmentList.add(new Fragment2());
         mFragmentList.add(new Fragment3());
         mFragmentList.add(new Fragment4());
-        adapter = new PagerSlideAdapter(getSupportFragmentManager(), mFragmentList);
+        PagerSlideAdapter adapter = new PagerSlideAdapter(getSupportFragmentManager(), mFragmentList);
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(0);
         text0.setTextColor(Color.WHITE);

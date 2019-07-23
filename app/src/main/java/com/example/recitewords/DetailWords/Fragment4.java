@@ -25,15 +25,14 @@ import java.io.StringReader;
 import static com.example.recitewords.Data.MyList.ListToChoose;
 
 
-/**
- * Created by Lister on 2017-05-18.
- */
-
 public class Fragment4 extends BaseFragment {
 
-    String Word,Translation,Pronunciation,MusicUrl="0",Sentences;
-    TextView pronunciation,translation,sentences;
-    ImageView pronounce;
+    private String Translation;
+    private String Pronunciation;
+    private String MusicUrl="0";
+    private String Sentences;
+    private TextView pronunciation,translation,sentences;
+    private ImageView pronounce;
     private static final int COMPLETED = 0;
     private Handler handler = new Handler(){
         @Override
@@ -109,7 +108,7 @@ public class Fragment4 extends BaseFragment {
                     exampleText = exampleText.substring(1,exampleText.length());
 
                     //创建SharedPreferences.Editor对象，指定文件名为
-                    Word = queryText;
+                    String word = queryText;
                     Pronunciation = "["+voiceArray[0]+"]";
                     MusicUrl = voiceUrlArray[0];
                     Translation = meanText;

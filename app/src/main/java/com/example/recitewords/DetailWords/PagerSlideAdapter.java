@@ -6,10 +6,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.List;
 
-/**
- * Created by Lister on 2017-05-18.
- * Fragment 滑动适配器
- */
 
 public class PagerSlideAdapter extends FragmentPagerAdapter {
 

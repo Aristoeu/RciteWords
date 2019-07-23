@@ -26,9 +26,14 @@ import static com.example.recitewords.Data.MyList.ListToChoose;
 public class Fragment2 extends BaseFragment {
 
 
-    String Word,Translation,Pronunciation,MusicUrl="0",Sentences;
-    TextView word,pronunciation,translation,floatView,sentences;
-    ImageView pronounce;
+    private String Translation;
+    private String Pronunciation;
+    private String MusicUrl="0";
+    private String Sentences;
+    private TextView pronunciation;
+    private TextView translation;
+    private TextView sentences;
+    private ImageView pronounce;
     private static final int COMPLETED = 0;
     private Handler handler = new Handler(){
         @Override
@@ -104,7 +109,7 @@ public class Fragment2 extends BaseFragment {
                     exampleText = exampleText.substring(1,exampleText.length());
 
                     //创建SharedPreferences.Editor对象，指定文件名为
-                    Word = queryText;
+                    String word = queryText;
                     Pronunciation = "["+voiceArray[0]+"]";
                     MusicUrl = voiceUrlArray[0];
                     Translation = meanText;
@@ -133,7 +138,7 @@ public class Fragment2 extends BaseFragment {
     @Override
     public View initView() {
         View view = View.inflate(mContext, R.layout.fragment_detail, null);
-        word = getActivity().findViewById(R.id.wordText);
+        TextView word = getActivity().findViewById(R.id.wordText);
         pronunciation = view.findViewById(R.id.toPronunciation);
         translation = view.findViewById(R.id.toTranslation);
         sentences = view.findViewById(R.id.toSentences);

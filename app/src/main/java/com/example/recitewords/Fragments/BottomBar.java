@@ -52,11 +52,6 @@ public class BottomBar extends View{
     private int titleColorBefore = Color.parseColor("#999999");
     private int titleColorAfter = Color.parseColor("#ff5d5e");
 
-    private int titleSizeInDp = 10;
-    private int iconWidth = 25;
-    private int iconHeight = 25;
-    private int titleIconMargin = 1;
-
     public BottomBar setContainer(int containerId) {
         this.containerId = containerId;
         return this;
@@ -68,36 +63,12 @@ public class BottomBar extends View{
         return this;
     }
 
-    public BottomBar setTitleSize(int titleSizeInDp) {
-        this.titleSizeInDp = titleSizeInDp;
-        return this;
-    }
-
-    public BottomBar setIconWidth(int iconWidth) {
-        this.iconWidth = iconWidth;
-        return this;
-    }
-
-    public BottomBar setTitleIconMargin(int titleIconMargin) {
-        this.titleIconMargin = titleIconMargin;
-        return this;
-    }
-
-    public BottomBar setIconHeight(int iconHeight) {
-        this.iconHeight = iconHeight;
-        return this;
-    }
 
     public BottomBar addItem(Class fragmentClass, String title, int iconResBefore, int iconResAfter) {
         fragmentClassList.add(fragmentClass);
         titleList.add(title);
         iconResBeforeList.add(iconResBefore);
         iconResAfterList.add(iconResAfter);
-        return this;
-    }
-
-    public BottomBar setFirstChecked(int firstCheckedIndex) {
-        this.firstCheckedIndex = firstCheckedIndex;
         return this;
     }
 
@@ -152,12 +123,16 @@ public class BottomBar extends View{
             int parentItemHeight = getHeight();
 
             //图标边长
-            int iconWidth = dp2px(this.iconWidth);//先指定20dp
-            int iconHeight = dp2px(this.iconHeight);
+            int iconWidth1 = 25;
+            int iconWidth = dp2px(iconWidth1);//先指定20dp
+            int iconHeight1 = 25;
+            int iconHeight = dp2px(iconHeight1);
 
             //图标文字margin
-            int textIconMargin = dp2px(((float)titleIconMargin)/2);//先指定5dp，这里除以一半才是正常的margin，不知道为啥，可能是图片的原因
+            int titleIconMargin = 1;
+            int textIconMargin = dp2px(((float) titleIconMargin)/2);//先指定5dp，这里除以一半才是正常的margin，不知道为啥，可能是图片的原因
 
+            int titleSizeInDp = 10;
             int titleSize = dp2px(titleSizeInDp);//这里先指定10dp
             paint.setTextSize(titleSize);
             Rect rect = new Rect();

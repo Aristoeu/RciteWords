@@ -28,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ReadText(R.raw.ielts,MyList.InfoName);
+        ReadText(R.raw.ielts,MyList.ListToReview);
         ReadText(R.raw.list_to_choose,MyList.ListToChoose);
-        Toast.makeText(this,MyList.InfoName.size()+"",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,MyList.ListToReview.size()+"",Toast.LENGTH_LONG).show();
         BottomBar bottomBar = findViewById(R.id.bottom_bar);
         bottomBar.setContainer(R.id.fl_container)
                 .setTitleBeforeAndAfterColor("#999999", "#008577")

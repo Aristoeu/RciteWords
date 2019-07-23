@@ -25,8 +25,6 @@ import java.util.Map;
 
 public class WordsActivity extends AppCompatActivity {
     public ListView listView;
-    private TextView Confirm;
-    private ImageView back;
     private List<Boolean> mChecked;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +35,8 @@ public class WordsActivity extends AppCompatActivity {
 
     private void init() {
         listView = findViewById(R.id.StdInfo);
-        back = findViewById(R.id.back);
-        Confirm = findViewById(R.id.confirm);
+        ImageView back = findViewById(R.id.back);
+        TextView confirm = findViewById(R.id.confirm);
         MyAdapter adapter = new MyAdapter(MyList.ListToChoose);
         listView.setAdapter(adapter);
         back.setOnClickListener(new View.OnClickListener() {
@@ -47,13 +45,13 @@ public class WordsActivity extends AppCompatActivity {
                 finish();
             }
         });
-        Confirm.setOnClickListener(new View.OnClickListener() {
+        confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 for(int i=0;i<mChecked.size();i++){
                     if(mChecked.get(i)){
                         Log.d("<<<>>>",i+"");
-                        MyList.InfoName.add(MyList.ListToChoose.get(i));
+                        MyList.ListToReview.add(MyList.ListToChoose.get(i));
                     }
                 finish();
             }}
